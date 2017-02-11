@@ -1,0 +1,61 @@
+Total	TempLoop	PreStress	StressLoop	BC	CG	Stress	BCInternal	BComm	BCInternalBofZ	BCInternalMM	CGMM	CGInnerProd	CGLoop	CGLoopMM	CGLoopInnerProdPAP	CGLoopInnerProdR	MMInternal	MMComm	BCMerge	BCExtract	MMMerge	MMExtract	StressInternal	StressComm	StressInternalComp
+13955	13415	16.35593220338983	209.5593220338983	73.5657894736842	71.57894736842105	16.11842105263158	36.00657894736842	0.0	25.17105263157895	10.532894736842104	17.210526315789473	0.0	53.6578947368421	17.45175438596491	0.0	0.0	17.222950819672132	0.0	0.0	0.0	0.0	0.0	15.978102189781023	NaN	15.978102189781023
+
+Total%	TempLoop%	PreStress%	StressLoop%	BC	CG%	Stress%	BCInternal%	BComm%	BCInternalBofZ%	BCInternalMM%	CGMM%	CGInnerProd%	CGLoop%	CGLoopMM%	CGLoopInnerProdPAP%	CGLoopInnerProdR%	MMInternal%	MMComm%	BCMerge%	BCExtract%	MMMerge%	MMExtract%
+1.0	0.9613041920458617	0.06915084199211752	0.8859906843425296	0.40064493013256897	0.389824435686134	0.08778215693299893	0.39218917950555354	0.0	0.27416696524543177	0.11472590469365819	0.09372984593335722	0.0	0.292225008957363	0.28513077749910426	0.0	0.0	0.37642422070942316	0.0	0.0	0.0	0.0	0.0	0.15686134002149768	0.0	0.15686134002149768
+
+Temperature Loop Timing Distribution
+13415	 13415
+
+Stress Timing Distribution
+1225	 1225
+
+BCComm Timing Distribution
+0	 0
+
+MMComm Timing Distribution
+0	 0
+
+StressComm Timing Distribution
+0	 0
+
+BCInternalBofZ Timing Distribution
+3826	 3847
+
+BCInternalMM Timing Distribution
+1601	 1587
+
+MMInternal Timing Distribution
+5253	 5245
+
+StressInternalComp Timing Distribution
+2189	 2217
+
+BC Merge Timing Distribution
+0	 0
+
+BC Extract Timing Distribution
+0	 0
+
+MM Merge Timing Distribution
+0	 0
+
+MM Extract Timing Distribution
+0	 0
+
+
+Temperature Loop Count Distribution
+59	 59
+
+Stress Loop Count Distribution
+76	 76
+
+CG Loop Count Distribution
+228	 228
+
+MM Internal Count Distribution
+305	 305
+
+
+0	1	
+
