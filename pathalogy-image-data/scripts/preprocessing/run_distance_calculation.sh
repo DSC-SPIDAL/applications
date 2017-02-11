@@ -6,9 +6,9 @@ cp=$HOME/.m2/repository/com/google/guava/guava/15.0/guava-15.0.jar:$HOME/sali/so
 #add path to source jar file
 cp=$cp":/home/pulasthi/work/FushengWang/tutorial/fusheng_wang_bio-1.0-SNAPSHOT-jar-with-dependencies.jar"
 
-dataFile=/home/pulasthi/work/FushengWang/tutorial/results/singleimage.data
+dataFile=/home/pulasthi/git/spidal/applications/pathalogy-image-data/sampledata/singleimage.data
 points=2000
 dimension=96
-outFile=/home/pulasthi/work/FushengWang/tutorial/results/out.bin
+outFile=/home/pulasthi/git/spidal/applications/pathalogy-image-data/sampledata/out.bin
 
 mpirun -n 2 java -cp $cp org.pulasthi.dsctools.DistanceCalculation $dataFile $points $dimension $outFile
