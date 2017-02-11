@@ -48,7 +48,6 @@ target/
 *.scc
 *.o
 *.exe
-*.bin
 *.swn
 *.swo
 *.swp
