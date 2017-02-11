@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.pulasthi.dsctools</groupId>
-    <artifactId>pathalogy_image_data</artifactId>
+    <artifactId>pathology_image_data</artifactId>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
