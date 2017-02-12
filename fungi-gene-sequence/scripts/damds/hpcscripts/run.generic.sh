@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#SBATCH -N 4
+#SBATCH --tasks-per-node=24
+#SBATCH --time=12:00:00
+
 #cores per socket
 cps=6
 #sockets per node
