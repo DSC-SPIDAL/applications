@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#SBATCH -N 4
+#SBATCH --tasks-per-node=24
+#SBATCH --time=12:00:00
+
 #cores per socket
 cps=6
 #sockets per node
@@ -59,11 +63,9 @@ MDS_OPS="-DTimingFile=$TimingFile -DSummaryFile=$SummaryFile -DPointsFile=$Point
 
 #Java options
 opts="-XX:+UseG1GC -Xms256m -Xmx"$xmx"$memmultype"
-#confFile=/N/u/pswickra/data/FushengWang/AllData/220k_20keach/config.properties
-confFile=/N/u/pswickra/data/FushengWang/TCGA-83-5908-01Z-00-DX1.381c8f82-61a0-4e9d-982d-1ad0af7bead9/config.properties
-#confFile=/N/u/pswickra/data/FushengWang/TCGA-55-6972-01Z-00-DX1.0b441ad0-c30f-4f63-849a-36c98d6e2d3b/config.properties
+confFile=config.properties
 
 echo "Running $pat on `date`" >> status.txt
-$BUILD/bin/mpirun --hostfile $8 --mca btl ^tcp --report-bindings --map-by ppr:$ppn:node:SPAN  --bind-to $bindToUnit --rank-by core  -np $(($nodes*$ppn)) java $opts  $MDS_OPS -cp $cp edu.indiana.soic.spidal.damds.Program -c $confFile -n $nodes -t $tpp -mmaps $mmaps -mmapdir $mmapdir 2>&1 | tee $pat/$pat.$xmx.$memmultype.$4.$3.comm.$commpat.out.txt
+$BUILD/bin/mpirun java $opts  $MDS_OPS -cp $cp edu.indiana.soic.spidal.damds.Program -c $confFile -n $nodes -t $tpp -mmaps $mmaps -mmapdir $mmapdir 2>&1 | tee $pat/$pat.$xmx.$memmultype.$4.$3.comm.$commpat.out.txt
 echo "Finished $pat on `date`" >> status.txt
 

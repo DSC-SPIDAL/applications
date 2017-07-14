@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#SBATCH -N 4
+#SBATCH --tasks-per-node=24
+#SBATCH --time=12:00:00
+
 #cores per socket
 cps=6
 #sockets per node
@@ -62,6 +66,6 @@ opts="-XX:+UseG1GC -Xms256m -Xmx"$xmx"$memmultype"
 
 
 echo "Running $pat on `date`" >> status.txt
-$BUILD/bin/mpirun --hostfile $8 --mca btl ^tcp --report-bindings --map-by ppr:$ppn:node:SPAN  --bind-to $bindToUnit --rank-by core  -np $(($nodes*$ppn)) java $opts  $MDS_OPS -cp $cp edu.indiana.soic.spidal.damds.Program -c config.properties -n $nodes -t $tpp -mmaps $mmaps -mmapdir $mmapdir 2>&1 | tee $pat/$pat.$xmx.$memmultype.$4.$3.comm.$commpat.out.txt
+$BUILD/bin/mpirun --mca btl ^tcp --report-bindings java $opts  $MDS_OPS -cp $cp edu.indiana.soic.spidal.damds.Program -c config.properties -n $nodes -t $tpp -mmaps $mmaps -mmapdir $mmapdir 2>&1 | tee $pat/$pat.$xmx.$memmultype.$4.$3.comm.$commpat.out.txt
 echo "Finished $pat on `date`" >> status.txt
 
