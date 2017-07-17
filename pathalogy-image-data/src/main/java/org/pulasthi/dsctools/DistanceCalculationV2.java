@@ -51,9 +51,7 @@ public class DistanceCalculationV2 {
 
             double[] means = new double[dimension];
             double[] sd = new double[dimension];
-            double max = Double.MIN_VALUE;
-            double disMean = 0;
-            double disSd = 0;
+
             for(int i = 0; i < numPoints; i++){
                 for (int j = 0; j < dimension; j++) {
                     means[j] += points[i][j];
@@ -84,8 +82,35 @@ public class DistanceCalculationV2 {
 
             Utils.printMessage("End calculating normalized data");
 
+            Utils.printMessage("Checking mean and sd");
 
+            means = new double[dimension];
+            sd = new double[dimension];
 
+            for(int i = 0; i < numPoints; i++){
+                for (int j = 0; j < dimension; j++) {
+                    means[j] += points[i][j];
+                }
+            }
+            for (int i = 0; i < dimension; i++) {
+                means[i] = means[i]/numPoints;
+            }
+            for(int i = 0; i < numPoints; i++){
+                for (int j = 0; j < dimension; j++) {
+                    sd[j] += (points[i][j] - means[j])*(points[i][j] - means[j]);
+                }
+            }
+            for (int i = 0; i < dimension; i++) {
+                sd[i] = Math.sqrt(sd[i]/numPoints);
+            }
+            Utils.printMessage("End calculating test mean and sd");
+            for (int i = 0; i < dimension; i++) {
+                System.out.println("Mean and Sd " + i + " : " + means[i] + " : " + sd[i]);
+            }
+
+            double max = Double.MIN_VALUE;
+            double disMean = 0;
+            double disSd = 0;
             //Used for initial satats calculations
             if(stats){
 //                double[] localDistances = new double[ParallelOps.procRowCount*numPoints];
