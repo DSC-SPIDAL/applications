@@ -28,6 +28,8 @@ public class DistanceCalculationV2 {
             int numPoints = Integer.valueOf(args[1]);
             int dimension = Integer.valueOf(args[2]);
             boolean stats = (args.length == 5) ? Boolean.valueOf(args[4]) : false;
+            double newMean = 0;
+            double newSd = 0.1;
             BufferedReader br = Files.newBufferedReader(Paths.get(inputFile));
             FileOutputStream fos = new FileOutputStream(outputFile);
             FileChannel fc = fos.getChannel();
@@ -44,47 +46,44 @@ public class DistanceCalculationV2 {
                 }
                 count++;
             }
+            //Calculate means and sd of features //TODO need to parallise
+            Utils.printMessage("Start calculating mean and sd");
+
+            double[] means = new double[dimension];
+            double[] sd = new double[dimension];
+            double max = Double.MIN_VALUE;
             double disMean = 0;
             double disSd = 0;
-            double max = Double.MIN_VALUE;
+            for(int i = 0; i < numPoints; i++){
+                for (int j = 0; j < dimension; j++) {
+                    means[j] += points[i][j];
+                }
+            }
+            for (int i = 0; i < dimension; i++) {
+                means[i] = means[i]/numPoints;
+            }
+            for(int i = 0; i < numPoints; i++){
+                for (int j = 0; j < dimension; j++) {
+                    sd[j] += (points[i][j] - means[j])*(points[i][j] - means[j]);
+                }
+            }
+            for (int i = 0; i < dimension; i++) {
+                sd[i] = Math.sqrt(sd[i]/numPoints);
+            }
+            Utils.printMessage("End calculating mean and sd");
 
-            //Calculate means and sd of features //TODO need to parallise
-//            Utils.printMessage("Start calculating mean and sd");
-//
-//            double[] means = new double[dimension];
-//            double[] sd = new double[dimension];
-//            double max = Double.MIN_VALUE;
-//            double disMean = 0;
-//            double disSd = 0;
-//            for(int i = 0; i < numPoints; i++){
-//                for (int j = 0; j < dimension; j++) {
-//                    means[j] += points[i][j];
-//                }
-//            }
-//            for (int i = 0; i < dimension; i++) {
-//                means[i] = means[i]/numPoints;
-//            }
-//            for(int i = 0; i < numPoints; i++){
-//                for (int j = 0; j < dimension; j++) {
-//                    sd[j] += (points[i][j] - means[j])*(points[i][j] - means[j]);
-//                }
-//            }
-//            for (int i = 0; i < dimension; i++) {
-//                sd[i] = Math.sqrt(sd[i]/numPoints);
-//            }
-//            Utils.printMessage("End calculating mean and sd");
-//
-//            //Update value with new normalized values
-//            Utils.printMessage("Start calculating normalized data");
-//
-//            for(int i = 0; i < numPoints; i++){
-//                for (int j = 0; j < dimension; j++) {
-//                    if(sd[j] == 0) continue;
-//                    points[i][j] = (points[i][j] - means[j])/sd[j];
-//                }
-//            }
+            //Update value with new normalized values
+            Utils.printMessage("Start calculating normalized data");
+
+            for(int i = 0; i < numPoints; i++){
+                for (int j = 0; j < dimension; j++) {
+                    if(sd[j] == 0) continue;
+                    points[i][j] = newMean + ((points[i][j] - means[j])/sd[j])*newSd;
+                }
+            }
 
             Utils.printMessage("End calculating normalized data");
+
 
 
             //Used for initial satats calculations
@@ -143,7 +142,6 @@ public class DistanceCalculationV2 {
                         disSd += (localDistances[i][j] - disMean)*(localDistances[i][j] - disMean);
                     }
                 }
-
                 disSd = Math.sqrt(ParallelOps.allReduce(disSd)/(((double)numPoints)*numPoints));
                 Utils.printMessage("Distance SD : " + disSd);
 
@@ -166,6 +164,10 @@ public class DistanceCalculationV2 {
                     ByteBuffer byteBuffer = ByteBuffer.allocate(numPoints * 2);
                     byteBuffer.order(ByteOrder.BIG_ENDIAN);
                     for (int j = 0; j < numPoints; j++) {
+                        if(i == 0){
+                            Utils.printMessage(" Distances with " + j + " is : " + localDistances[i][j]);
+                        }
+
                         row[j] = (short) ((localDistances[i][j] / max) * Short.MAX_VALUE);
                     }
                     byteBuffer.clear();

@@ -32,6 +32,8 @@ public class DistanceCalculation {
             int numPoints = Integer.valueOf(args[1]);
             int dimension = Integer.valueOf(args[2]);
             boolean stats = (args.length == 5) ? Boolean.valueOf(args[4]) : false;
+            double newMean = 0;
+            double newSd = 0.1;
             BufferedReader br = Files.newBufferedReader(Paths.get(inputFile));
             FileOutputStream fos = new FileOutputStream(outputFile);
             FileChannel fc = fos.getChannel();
@@ -81,7 +83,7 @@ public class DistanceCalculation {
             for(int i = 0; i < numPoints; i++){
                 for (int j = 0; j < dimension; j++) {
                     if(sd[j] == 0) continue;
-                    points[i][j] = (points[i][j] - means[j])/sd[j];
+                    points[i][j] = newMean + ((points[i][j] - means[j])/sd[j])*newSd;
                 }
             }
 
