@@ -164,9 +164,9 @@ public class DistanceCalculationV2 {
                     ByteBuffer byteBuffer = ByteBuffer.allocate(numPoints * 2);
                     byteBuffer.order(ByteOrder.BIG_ENDIAN);
                     for (int j = 0; j < numPoints; j++) {
-                        if(i == 0){
-                            Utils.printMessage(" Distances with " + j + " is : " + localDistances[i][j]);
-                        }
+//                        if(i == 0){
+//                            Utils.printMessage(" Distances with " + j + " is : " + localDistances[i][j]);
+//                        }
 
                         row[j] = (short) ((localDistances[i][j] / max) * Short.MAX_VALUE);
                     }
