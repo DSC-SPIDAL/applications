@@ -27,6 +27,7 @@ public class DistanceCalculationV2 {
             String outputFile = args[3];
             int numPoints = Integer.valueOf(args[1]);
             int dimension = Integer.valueOf(args[2]);
+
             boolean stats = (args.length == 5) ? Boolean.valueOf(args[4]) : false;
             double newMean = 0;
             double newSd = 0.1;
@@ -75,12 +76,21 @@ public class DistanceCalculationV2 {
 
             for(int i = 0; i < numPoints; i++){
                 for (int j = 0; j < dimension; j++) {
-                    if(sd[j] == 0) continue;
-                    points[i][j] = newMean + ((points[i][j] - means[j])/sd[j])*newSd;
+                    if (sd[j] == 0) continue;
+                    // special case remove the if later
+                    if (j == 4) {
+                        points[i][j] = newMean + ((points[i][j] - means[j]) / sd[j]) * 0.2;
+                    } else {
+                        points[i][j] = newMean + ((points[i][j] - means[j]) / sd[j]) * newSd;
+                    }
                 }
+
             }
 
             Utils.printMessage("End calculating normalized data");
+
+
+
 
             Utils.printMessage("Checking mean and sd");
 
