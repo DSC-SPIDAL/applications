@@ -17,4 +17,12 @@ public class Utils {
         }
         System.out.println(msg);
     }
+    public static double calculateEuclideanDistance(double x[], double y[], int dimension){
+        double sum = 0;
+        for (int i = 0; i < dimension; i++) {
+            sum += (x[i]-y[i])*(x[i]-y[i]);
+        }
+
+        return Math.sqrt(sum);
+    }
 }
