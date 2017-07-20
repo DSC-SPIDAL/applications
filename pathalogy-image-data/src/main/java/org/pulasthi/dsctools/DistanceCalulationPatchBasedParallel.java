@@ -102,7 +102,7 @@ public class DistanceCalulationPatchBasedParallel {
         }
 
 
-        localDistances = new double[ParallelOps.procRowStartOffset][patchNucli.size()];
+        localDistances = new double[ParallelOps.procRowCount][patchNucli.size()];
         double tempsingledist;
         double temppatchtopatchdist;
         double max = Double.MIN_VALUE;
