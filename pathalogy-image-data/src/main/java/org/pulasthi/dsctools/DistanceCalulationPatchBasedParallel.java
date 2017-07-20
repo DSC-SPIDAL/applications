@@ -92,6 +92,7 @@ public class DistanceCalulationPatchBasedParallel {
                 }
             }
             ParallelOps.setParallelDecomposition(patchNucli.size(),17);
+            Utils.printMessage("Number of patches " + patchNucli.size());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
