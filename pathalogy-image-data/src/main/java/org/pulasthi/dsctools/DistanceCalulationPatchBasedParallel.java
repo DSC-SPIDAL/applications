@@ -165,7 +165,7 @@ public class DistanceCalulationPatchBasedParallel {
         ArrayList<double[]> temppatch2;
         int matrixSize = patchNucli.size();
         String[] patch1 = new String[matrixSize];
-        patchNucli.keySet().toArray(patch1);
+            patchNucli.keySet().toArray(patch1);
         Arrays.sort(patch1);
         String[] patch2 = new String[matrixSize];
         patchNucli.keySet().toArray(patch2);
@@ -215,6 +215,12 @@ public class DistanceCalulationPatchBasedParallel {
                 }
                 temppatchtopatchdist = temppatchtopatchdist/tempnuCount;
                 localDistances[i][j] = temppatchtopatchdist;
+                if(temppatchtopatchdist == 0.0){
+                    System.out.println("Between " + i + "and" + j);
+                }
+                if(i == 58 && j == 59) {
+                    System.out.println("Between 59 and 58 the distance is " + temppatchtopatchdist);
+                }
                 if(temppatchtopatchdist > max){
                     max = temppatchtopatchdist;
                 }
