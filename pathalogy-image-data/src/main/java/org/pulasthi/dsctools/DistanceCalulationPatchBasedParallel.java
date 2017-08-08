@@ -201,7 +201,10 @@ public class DistanceCalulationPatchBasedParallel {
                 tempnuCount = 0;
                 temppatch1 = patchNucli.get(patch1[i + ParallelOps.procRowStartOffset]);
                 temppatch2 = patchNucli.get(patch2[j]);
-
+                if(i + ParallelOps.procRowStartOffset == j){
+                    localDistances[i][j] = 0.0;
+                    continue;
+                }
                 for (double[] doubles1 : temppatch1) {
                     for (double[] doubles2 : temppatch2) {
                         tempsingledist = Utils.calculateEuclideanDistance(doubles1,doubles2,doubles1.length);
