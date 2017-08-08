@@ -219,6 +219,7 @@ public class DistanceCalulationPatchBasedParallel {
                     max = temppatchtopatchdist;
                 }
 
+
             }
         }
 
@@ -239,6 +240,21 @@ public class DistanceCalulationPatchBasedParallel {
 //                        }
 
                     row[j] = (short) ((localDistances[i][j] / max) * Short.MAX_VALUE);
+                    if(i + ParallelOps.procRowStartOffset  == 0 && j == 1){
+                        System.out.println(": " + (double)row[j]/Short.MAX_VALUE);
+                    }
+                    if(i + ParallelOps.procRowStartOffset == 0 && j == 8000){
+                        System.out.println(": " + (double)row[j]/Short.MAX_VALUE);
+                    }
+                    if(i + ParallelOps.procRowStartOffset  == 1525 && j == 0){
+                        System.out.println(": " + (double)row[j]/Short.MAX_VALUE);
+                    }
+                    if(i + ParallelOps.procRowStartOffset == 7345 && j == 8000){
+                        System.out.println(": " + (double)row[j]/Short.MAX_VALUE);
+                    }
+                    if(i + ParallelOps.procRowStartOffset == 7345 && j == 123){
+                        System.out.println(": " + (double)row[j]/Short.MAX_VALUE);
+                    }
                 }
                 byteBuffer.clear();
                 byteBuffer.asShortBuffer().put(row);
