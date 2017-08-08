@@ -215,12 +215,6 @@ public class DistanceCalulationPatchBasedParallel {
                 }
                 temppatchtopatchdist = temppatchtopatchdist/tempnuCount;
                 localDistances[i][j] = temppatchtopatchdist;
-                if(temppatchtopatchdist == 0.0){
-                    System.out.println("Between " + i + "and" + j);
-                }
-                if(i == 58 && j == 59) {
-                    System.out.println("Between 59 and 58 the distance is " + temppatchtopatchdist);
-                }
                 if(temppatchtopatchdist > max){
                     max = temppatchtopatchdist;
                 }
@@ -231,11 +225,11 @@ public class DistanceCalulationPatchBasedParallel {
         try {
             max = ParallelOps.allReduceMax(max);
 
-            FileOutputStream fos = new FileOutputStream(outputFolderName + "/" + outFileName);
+            FileOutputStream fos = new FileOutputStream(outputFolderName + "/" + outFileName + "_" + ParallelOps.worldProcRank );
             FileChannel fc = fos.getChannel();
 
             short[] row = new short[matrixSize];
-            long filePosition = ((long) ParallelOps.procRowStartOffset) * matrixSize * 2;
+            long filePosition = 0;
             for (int i = 0; i < ParallelOps.procRowCount; i++) {
                 ByteBuffer byteBuffer = ByteBuffer.allocate(matrixSize * 2);
                 byteBuffer.order(ByteOrder.BIG_ENDIAN);
